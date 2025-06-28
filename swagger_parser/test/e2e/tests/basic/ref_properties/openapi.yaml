@@ -1,0 +1,40 @@
+openapi: 3.1.0
+info:
+  title: API
+  version: 1.0.0
+paths:
+  /pets:
+    get:
+      operationId: findPets
+      responses:
+        "200":
+          description: List of Pets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+
+components:
+  schemas:
+    Pet:
+      type: object
+      required:
+        - nullableDateTime
+        - nullableDateTimeRef
+      properties:
+        nullableDateTime:
+          type: string
+          nullable: true
+          format: date-time
+          description: value in UTC, formatted in ISO String
+        nullableDateTimeRef:
+          $ref: '#/components/schemas/ApiNullableDateTime'
+
+    ApiNullableDateTime:
+      type: string
+      deprecated: true
+      nullable: true
+      format: date-time
+      description: value in UTC, formatted in ISO String
