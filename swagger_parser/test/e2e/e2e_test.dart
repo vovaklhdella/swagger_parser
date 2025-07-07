@@ -293,6 +293,19 @@ void main() {
       );
     });
 
+    test('issue_309', () async {
+      await e2eTest(
+        'basic/issue_309',
+        (outputDirectory, schemaPath) => SWPConfig(
+          outputDirectory: outputDirectory,
+          schemaPath: schemaPath,
+          jsonSerializer: JsonSerializer.freezed,
+          putClientsInFolder: true,
+        ),
+        schemaFileName: 'issue_309.json',
+      );
+    });
+
     test('of_like_class.3.1', () async {
       await e2eTest(
         'basic/of_like_class.3.1',

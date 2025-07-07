@@ -1,0 +1,27 @@
+{
+  "openapi": "3.0.0",
+  "paths": {},
+  "components": {
+    "schemas": {
+      "MenuItem": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": { "type": "string", "example": "Test 123" },
+          "linkOptions": { "$ref": "#/components/schemas/linkOptions" }
+        }
+      },
+      "linkOptions": {
+        "type": "object",
+        "required": ["type", "title"],
+        "properties": {
+          "type": {
+            "enum": ["internal", "external"],
+            "type": "string",
+            "example": "internal"
+          }
+        }
+      }
+    }
+  }
+}
