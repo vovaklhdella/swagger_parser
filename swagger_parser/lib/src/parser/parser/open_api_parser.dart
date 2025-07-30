@@ -270,6 +270,8 @@ class OpenApiParser {
                     parameterType.isBody && parameter[_nameConst] == _bodyConst
                         ? null
                         : parameter[_nameConst].toString(),
+                deprecated:
+                    parameter[_deprecatedConst].toString().toBool() ?? false,
               ),
             );
           }
@@ -399,6 +401,7 @@ class OpenApiParser {
                   isRequired: currentType.isRequired,
                   nullable: currentType.nullable,
                   wrappingCollections: currentType.wrappingCollections,
+                  deprecated: currentType.deprecated,
                 ),
               ),
             );
@@ -428,6 +431,7 @@ class OpenApiParser {
                 isRequired: currentType.isRequired,
                 nullable: currentType.nullable,
                 wrappingCollections: currentType.wrappingCollections,
+                deprecated: currentType.deprecated,
               ),
             ),
           );
@@ -463,6 +467,7 @@ class OpenApiParser {
             // List<dynamic> is not supported by Retrofit, use dynamic instead
             type.type == _objectConst ? const [] : type.wrappingCollections,
         isRequired: typeWithImport.type.isRequired,
+        deprecated: type.deprecated,
       );
     }
 
@@ -542,6 +547,8 @@ class OpenApiParser {
               name: parameterType.isBody && parameter[_nameConst] == _bodyConst
                   ? null
                   : parameter[_nameConst].toString(),
+              deprecated:
+                  parameter[_deprecatedConst].toString().toBool() ?? false,
             ),
           );
         }
@@ -1069,6 +1076,7 @@ class OpenApiParser {
             ...itemDetails.wrappingCollections,
             // If items are themselves collections
           ],
+          deprecated: map[_deprecatedConst].toString().toBool() ?? false,
         ),
         import: itemImport,
       );
@@ -1135,6 +1143,7 @@ class OpenApiParser {
             ...valueDetails.wrappingCollections,
             // If values are themselves collections
           ],
+          deprecated: map[_deprecatedConst].toString().toBool() ?? false,
         ),
         import: valueImport,
       );
@@ -1200,6 +1209,7 @@ class OpenApiParser {
               (t) => t != 'null',
               orElse: () => map[_typeConst].toString()),
           nullable: isEnumNullable,
+          deprecated: map[_deprecatedConst].toString().toBool() ?? false,
         ),
         import: enumClass.name,
       );
@@ -1269,6 +1279,7 @@ class OpenApiParser {
             false => !isRequired,
           },
           isRequired: isRequired,
+          deprecated: map[_deprecatedConst].toString().toBool() ?? false,
         ),
         import: type,
       );
@@ -1527,6 +1538,7 @@ class OpenApiParser {
             isRequired: isRequired,
             nullable: map[_nullableConst].toString().toBool() ??
                 (root && !isRequired),
+            deprecated: map[_deprecatedConst].toString().toBool() ?? false,
           );
         }
 
@@ -1586,6 +1598,7 @@ class OpenApiParser {
           // isRequired for the property itself
           wrappingCollections: finalWrappingCollections,
           nullable: finalNullable,
+          deprecated: ofType?.deprecated ?? false,
         ),
         import: finalImport,
       );
@@ -1643,6 +1656,7 @@ class OpenApiParser {
             true => true,
             false => !isRequired,
           },
+          deprecated: map[_deprecatedConst].toString().toBool() ?? false,
         ),
         import: import,
       );

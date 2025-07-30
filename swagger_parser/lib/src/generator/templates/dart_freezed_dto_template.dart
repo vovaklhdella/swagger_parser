@@ -276,6 +276,10 @@ String _jsonKey(UniversalType t) {
     sb.write('    @Default(${_defaultValue(t)})\n');
   }
 
+  if (t.deprecated) {
+    sb.write("    @Deprecated('This is marked as deprecated')\n");
+  }
+
   return sb.toString();
 }
 
