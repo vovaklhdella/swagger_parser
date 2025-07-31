@@ -651,7 +651,7 @@ class OpenApiParser {
           isDeprecated:
               requestPath[_deprecatedConst].toString().toBool() ?? false,
         );
-        final currentTag = _getTag(requestPath);
+        final currentTag = _getTag(requestPath).toSnake;
         final sameTagIndex = restClients.indexWhere(
           (e) => e.name.toLowerCase() == currentTag.toLowerCase(),
         );
